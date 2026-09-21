@@ -1,0 +1,183 @@
+<div class="profile-page">
+
+  <div class="page-header">
+    <div>
+      <h2>Profile</h2>
+      <p>Manage your personal information and account settings.</p>
+    </div>
+  </div>
+
+  <div class="profile-grid">
+
+    <!-- Profile information -->
+
+    <mat-card class="profile-card">
+
+      <div class="card-header">
+        <div class="profile-avatar">
+          NS
+        </div>
+
+        <div>
+          <h3>Personal Information</h3>
+          <p>Update your account details.</p>
+        </div>
+      </div>
+
+      <form
+        [formGroup]="profileForm"
+        (ngSubmit)="saveProfile()">
+
+        <div class="form-grid">
+
+          <mat-form-field appearance="outline">
+
+            <mat-label>Full Name</mat-label>
+
+            <input
+              matInput
+              formControlName="name">
+
+            <mat-error
+              *ngIf="profileForm.get('name')?.hasError('required')">
+
+              Name is required
+
+            </mat-error>
+
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+
+            <mat-label>Email</mat-label>
+
+            <input
+              matInput
+              type="email"
+              formControlName="email">
+
+            <mat-error
+              *ngIf="profileForm.get('email')?.hasError('required')">
+
+              Email is required
+
+            </mat-error>
+
+            <mat-error
+              *ngIf="profileForm.get('email')?.hasError('email')">
+
+              Please enter a valid email
+
+            </mat-error>
+
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+
+            <mat-label>Phone</mat-label>
+
+            <input
+              matInput
+              formControlName="phone"
+              placeholder="+357 ...">
+
+            <mat-error
+              *ngIf="profileForm.get('phone')?.hasError('pattern')">
+
+              Please enter a valid phone number
+
+            </mat-error>
+
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+
+            <mat-label>Country</mat-label>
+
+            <input
+              matInput
+              formControlName="country">
+
+            <mat-error
+              *ngIf="profileForm.get('country')?.hasError('required')">
+
+              Country is required
+
+            </mat-error>
+
+          </mat-form-field>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary">
+
+            Save Changes
+
+          </button>
+
+        </div>
+
+
+        <div
+          class="success-message"
+          *ngIf="saved">
+
+          Profile updated successfully.
+
+        </div>
+
+      </form>
+
+    </mat-card>
+
+
+    <!-- Account information -->
+
+    <mat-card class="account-card">
+
+      <h3>Account</h3>
+
+      <div class="account-item">
+
+        <span>Account Status</span>
+
+        <strong class="active">
+          Active
+        </strong>
+
+      </div>
+
+      <div class="account-item">
+
+        <span>Account Type</span>
+
+        <strong>
+          Personal
+        </strong>
+
+      </div>
+
+      <div class="account-item">
+
+        <span>Currency</span>
+
+        <strong>
+          EUR (€)
+        </strong>
+
+      </div>
+
+    </mat-card>
+
+  </div>
+
+</div>

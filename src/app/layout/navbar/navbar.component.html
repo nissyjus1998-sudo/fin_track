@@ -1,0 +1,37 @@
+<header class="navbar">
+<button
+  class="menu-button"
+  type="button"
+  (click)="toggleMenu()">
+  ☰
+</button>
+  <div>
+    <h1>Financial Overview</h1>
+    <p>Manage your finances in one place.</p>
+  </div>
+
+  <div class="user-section">
+
+    <button class="notification-button">
+      🔔
+    </button>
+
+    <div class="user-info">
+  <div class="avatar">NS</div>
+
+  <div>
+    <strong>Nissy Shery</strong>
+    <span>Account Owner</span>
+  </div>
+
+  <button
+    mat-button
+    color="primary"
+    (click)="logout()">
+    Logout
+  </button>
+</div>
+
+  </div>
+
+</header>

@@ -1,0 +1,212 @@
+<div class="transactions-page">
+
+  <div class="page-header">
+    <div>
+      <h2>Transactions</h2>
+      <p>Manage your income and expenses.</p>
+    </div>
+
+   <button
+  mat-raised-button
+  color="primary"
+  (click)="showForm = !showForm">
+  + Add Transaction
+</button>
+  </div>
+<mat-card class="add-transaction-card" *ngIf="showForm">
+
+  <mat-card-header>
+    <mat-card-title>Add Transaction</mat-card-title>
+    <mat-card-subtitle>
+      Enter your income or expense details
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <form [formGroup]="transactionForm" (ngSubmit)="addTransaction()">
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <input
+            matInput
+            formControlName="description"
+            placeholder="e.g. Grocery Shopping">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Category</mat-label>
+
+          <mat-select formControlName="category">
+
+            <mat-option value="Food">
+              Food
+            </mat-option>
+
+            <mat-option value="Housing">
+              Housing
+            </mat-option>
+
+            <mat-option value="Transport">
+              Transport
+            </mat-option>
+
+            <mat-option value="Entertainment">
+              Entertainment
+            </mat-option>
+
+            <mat-option value="Income">
+              Income
+            </mat-option>
+
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Type</mat-label>
+
+          <mat-select formControlName="type">
+
+            <mat-option value="income">
+              Income
+            </mat-option>
+
+            <mat-option value="expense">
+              Expense
+            </mat-option>
+
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Amount</mat-label>
+
+          <input
+            matInput
+            type="number"
+            formControlName="amount"
+            placeholder="0.00">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date</mat-label>
+
+          <input
+            matInput
+            type="date"
+            formControlName="date">
+        </mat-form-field>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button
+          mat-button
+          type="button"
+          (click)="resetForm()">
+          Cancel
+        </button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit">
+          {{ editingTransaction ? 'Update Transaction' : 'Add Transaction' }}
+        </button>
+
+      </div>
+
+    </form>
+
+  </mat-card-content>
+
+</mat-card>
+  <mat-card class="transactions-card">
+
+    <mat-card-header>
+      <mat-card-title>All Transactions</mat-card-title>
+      <mat-card-subtitle>
+        Your complete financial activity
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <table class="transactions-table">
+
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let transaction of transactions">
+
+            <td>
+              {{ transaction.description }}
+            </td>
+
+            <td>
+              <span class="category">
+                {{ transaction.category }}
+              </span>
+            </td>
+
+            <td>
+              <span
+                class="type"
+                [class.income]="transaction.type === 'income'"
+                [class.expense]="transaction.type === 'expense'">
+                {{ transaction.type }}
+              </span>
+            </td>
+
+            <td>
+              {{ transaction.date | date:'MMM d, y' }}
+            </td>
+
+            <td
+              class="amount"
+              [class.positive]="transaction.type === 'income'"
+              [class.negative]="transaction.type === 'expense'">
+
+              {{ transaction.type === 'income' ? '+' : '-' }}€{{ transaction.amount }}
+            </td>
+
+            <td class="actions">
+
+              <button
+                mat-button
+                color="primary" (click)="editTransaction(transaction)">
+                Edit
+              </button>
+
+              <button
+                mat-button
+                color="warn" (click)="deleteTransaction(transaction.id)">
+                Delete
+              </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

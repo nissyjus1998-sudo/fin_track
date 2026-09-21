@@ -1,0 +1,72 @@
+<aside
+  class="sidebar"
+  [class.mobile-open]="isMobileOpen">
+
+  <div class="logo">
+    <span class="logo-icon">F</span>
+    <span class="logo-text">FinTrack</span>
+  </div>
+
+  <nav class="navigation">
+
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="active"
+      (click)="isMobileOpen = false">
+
+      <span>📊</span>
+      Dashboard
+
+    </a>
+
+    <a
+      routerLink="/transactions"
+      routerLinkActive="active"
+      (click)="isMobileOpen = false">
+
+      <span>💳</span>
+      Transactions
+
+    </a>
+
+    <a
+      routerLink="/budgets"
+      routerLinkActive="active"
+      (click)="isMobileOpen = false">
+
+      <span>💰</span>
+      Budgets
+
+    </a>
+
+    <a
+      routerLink="/reports"
+      routerLinkActive="active"
+      (click)="isMobileOpen = false">
+
+      <span>📈</span>
+      Reports
+
+    </a>
+
+    <a
+      routerLink="/profile"
+      routerLinkActive="active"
+      (click)="isMobileOpen = false">
+
+      <span>👤</span>
+      Profile
+
+    </a>
+
+  </nav>
+
+  <div class="sidebar-footer">
+
+    <span class="status-dot"></span>
+
+    <span>Account Active</span>
+
+  </div>
+
+</aside>

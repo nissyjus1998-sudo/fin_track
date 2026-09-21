@@ -1,0 +1,86 @@
+<div class="reports-page">
+
+  <div class="page-header">
+    <div>
+      <h2>Reports</h2>
+      <p>Analyze your income and spending patterns.</p>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+
+    <mat-card class="summary-card">
+      <span class="summary-label">Total Income</span>
+      <strong class="income">
+        €{{ getTotalIncome() | number:'1.2-2' }}
+      </strong>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <span class="summary-label">Total Expenses</span>
+      <strong class="expense">
+        €{{ getTotalExpenses() | number:'1.2-2' }}
+      </strong>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <span class="summary-label">Balance</span>
+      <strong>
+        €{{ getBalance() | number:'1.2-2' }}
+      </strong>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <span class="summary-label">Savings</span>
+      <strong>
+        €{{ getSavings() | number:'1.2-2' }}
+      </strong>
+    </mat-card>
+
+  </div>
+
+  <div class="reports-grid">
+
+    <mat-card class="report-card">
+
+      <div class="card-header">
+        <div>
+          <h3>Spending by Category</h3>
+          <p>Overview of your expenses</p>
+        </div>
+      </div>
+
+      <div class="chart-container">
+
+        <canvas
+          baseChart
+          [type]="categoryChartType"
+          [data]="categoryChartData">
+        </canvas>
+
+      </div>
+
+    </mat-card>
+<mat-card class="report-card">
+
+  <div class="card-header">
+    <div>
+      <h3>Income vs Expenses</h3>
+      <p>Monthly financial comparison</p>
+    </div>
+  </div>
+
+  <div class="chart-container">
+
+    <canvas
+      baseChart
+      [type]="monthlyChartType"
+      [data]="monthlyChartData">
+    </canvas>
+
+  </div>
+
+</mat-card>
+  </div>
+
+</div>

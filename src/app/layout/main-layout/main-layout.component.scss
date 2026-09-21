@@ -1,0 +1,53 @@
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.main-section {
+  flex: 1;
+  min-width: 0;
+}
+
+.page-content {
+  padding: 24px;
+}
+.menu-button {
+  display: none;
+
+  border: none;
+  background: transparent;
+
+  font-size: 24px;
+  cursor: pointer;
+
+  color: #111827;
+}
+
+@media (max-width: 768px) {
+
+  .menu-button {
+    display: block;
+  }
+
+  .navbar {
+    padding: 0 16px;
+  }
+
+  .navbar h1 {
+    font-size: 17px;
+  }
+
+  .navbar p {
+    display: none;
+  }
+
+  .user-info span {
+    display: none;
+  }
+
+  .user-info strong {
+    display: none;
+  }
+
+}

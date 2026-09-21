@@ -1,0 +1,240 @@
+<div class="budgets-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h2>Budgets</h2>
+      <p>Set spending limits and track your progress.</p>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="showForm = !showForm">
+      + Add Budget
+    </button>
+  </div>
+
+
+  <!-- Add / Edit Budget Form -->
+  <mat-card
+    class="budget-form-card"
+    *ngIf="showForm">
+
+    <h3>
+      {{ editingBudget ? 'Edit Budget' : 'Create Budget' }}
+    </h3>
+
+    <form
+      [formGroup]="budgetForm"
+      (ngSubmit)="addBudget()">
+
+      <div class="form-grid">
+
+        <!-- Category -->
+        <mat-form-field appearance="outline">
+          <mat-label>Category</mat-label>
+
+          <mat-select formControlName="category">
+
+            <mat-option value="Food">
+              Food
+            </mat-option>
+
+            <mat-option value="Housing">
+              Housing
+            </mat-option>
+
+            <mat-option value="Transport">
+              Transport
+            </mat-option>
+
+            <mat-option value="Entertainment">
+              Entertainment
+            </mat-option>
+
+            <mat-option value="Shopping">
+              Shopping
+            </mat-option>
+
+            <mat-option value="Other">
+              Other
+            </mat-option>
+
+          </mat-select>
+
+          <mat-error
+            *ngIf="budgetForm.get('category')?.hasError('required')">
+            Category is required
+          </mat-error>
+
+        </mat-form-field>
+
+
+        <!-- Budget Limit -->
+        <mat-form-field appearance="outline">
+
+          <mat-label>Monthly Budget</mat-label>
+
+          <input
+            matInput
+            type="number"
+            formControlName="limit"
+            placeholder="Enter budget amount">
+
+          <span matPrefix>€&nbsp;</span>
+
+          <mat-error
+            *ngIf="budgetForm.get('limit')?.hasError('required')">
+            Budget limit is required
+          </mat-error>
+
+          <mat-error
+            *ngIf="budgetForm.get('limit')?.hasError('min')">
+            Amount must be greater than 0
+          </mat-error>
+
+        </mat-form-field>
+
+      </div>
+
+
+      <!-- Form Buttons -->
+      <div class="form-actions">
+
+        <button
+          type="button"
+          mat-stroked-button
+          (click)="resetForm()">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary">
+
+          {{ editingBudget ? 'Update Budget' : 'Create Budget' }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </mat-card>
+
+
+  <!-- Budget Cards -->
+  <div class="budget-grid">
+
+    <mat-card
+      class="budget-card"
+      *ngFor="let budget of budgets">
+
+      <!-- Card Header -->
+      <div class="budget-card-header">
+
+        <div>
+          <h3>{{ budget.category }}</h3>
+          <span>Monthly budget</span>
+        </div>
+
+        <div class="budget-actions">
+
+          <button
+            mat-button
+            (click)="editBudget(budget)">
+            Edit
+          </button>
+
+          <button
+            mat-button
+            color="warn"
+            (click)="deleteBudget(budget.id)">
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Amount -->
+      <div class="budget-amount">
+
+        <div>
+          <span class="label">Spent</span>
+          <strong>€{{ budget.spent | number:'1.2-2' }}</strong>
+        </div>
+
+        <div class="limit">
+          <span class="label">Limit</span>
+          <strong>€{{ budget.limit | number:'1.2-2' }}</strong>
+        </div>
+
+      </div>
+
+
+      <!-- Progress -->
+      <div class="progress-section">
+
+        <div class="progress-label">
+          <span>
+            {{ getPercentage(budget) | number:'1.0-0' }}% used
+          </span>
+
+          <span
+            [class.good]="getStatus(budget) === 'good'"
+            [class.warning]="getStatus(budget) === 'warning'"
+            [class.over]="getStatus(budget) === 'over'">
+
+            {{ getStatus(budget) === 'good'
+              ? 'Within budget'
+              : getStatus(budget) === 'warning'
+              ? 'Near limit'
+              : 'Over budget'
+            }}
+
+          </span>
+        </div>
+
+
+        <mat-progress-bar
+          mode="determinate"
+          [value]="getPercentage(budget)"
+          [class.progress-good]="getStatus(budget) === 'good'"
+          [class.progress-warning]="getStatus(budget) === 'warning'"
+          [class.progress-over]="getStatus(budget) === 'over'">
+        </mat-progress-bar>
+
+      </div>
+
+
+      <!-- Remaining -->
+      <div class="budget-footer">
+
+        <span
+          *ngIf="getRemaining(budget) >= 0">
+
+          €{{ getRemaining(budget) | number:'1.2-2' }}
+          remaining
+
+        </span>
+
+        <span
+          class="over-text"
+          *ngIf="getRemaining(budget) < 0">
+
+          €{{ -getRemaining(budget) | number:'1.2-2' }}
+          over budget
+
+        </span>
+
+      </div>
+
+    </mat-card>
+
+  </div>
+
+</div>

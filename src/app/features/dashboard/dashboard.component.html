@@ -1,0 +1,210 @@
+<div class="dashboard">
+
+  <!-- Page Header -->
+  <div class="dashboard-header">
+    <div>
+      <h2>Dashboard</h2>
+      <p>Here's what's happening with your finances.</p>
+    </div>
+
+    <button mat-raised-button color="primary">
+      + Add Transaction
+    </button>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-grid">
+
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="card-header">
+          <span>Total Balance</span>
+          <span class="card-icon">💰</span>
+        </div>
+
+        <h3>€{{ getBalance() | number:'1.2-2' }}</h3>
+
+        <p class="positive">
+          ↑ 8.2% <span>vs last month</span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="card-header">
+          <span>Income</span>
+          <span class="card-icon">📈</span>
+        </div>
+
+        <h3>€{{ getTotalIncome() | number:'1.2-2' }}</h3>
+
+        <p class="positive">
+          ↑ 5.4% <span>vs last month</span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="card-header">
+          <span>Expenses</span>
+          <span class="card-icon">💳</span>
+        </div>
+
+         <h3>€{{ getTotalExpenses() | number:'1.2-2' }}</h3>
+
+        <p class="negative">
+          ↑ 3.1% <span>vs last month</span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="card-header">
+          <span>Savings</span>
+          <span class="card-icon">🏦</span>
+        </div>
+
+        <h3>€{{ getSavings() | number:'1.2-2' }}</h3>
+
+        <p class="positive">
+          ↑ 12.6% <span>vs last month</span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-grid">
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Income vs Expenses</mat-card-title>
+        <mat-card-subtitle>Monthly overview</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="chart-placeholder">
+
+          <div class="chart-bars">
+            <div class="bar income" style="height: 80%">
+              <span>€4.2k</span>
+            </div>
+
+            <div class="bar expense" style="height: 55%">
+              <span>€2.8k</span>
+            </div>
+          </div>
+
+          <div class="chart-labels">
+            <span>Income</span>
+            <span>Expenses</span>
+          </div>
+
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Spending Breakdown -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Spending Breakdown</mat-card-title>
+        <mat-card-subtitle>This month</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="spending-list">
+
+          <div class="spending-item">
+            <span>🏠 Housing</span>
+            <strong>€900</strong>
+          </div>
+
+          <div class="spending-item">
+            <span>🍔 Food</span>
+            <strong>€450</strong>
+          </div>
+
+          <div class="spending-item">
+            <span>🚗 Transport</span>
+            <strong>€300</strong>
+          </div>
+
+          <div class="spending-item">
+            <span>🛍 Shopping</span>
+            <strong>€250</strong>
+          </div>
+
+          <div class="spending-item">
+            <span>📱 Bills</span>
+            <strong>€200</strong>
+          </div>
+
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <!-- Recent Transactions -->
+  <mat-card class="transactions-card">
+
+    <mat-card-header>
+      <mat-card-title>Recent Transactions</mat-card-title>
+      <mat-card-subtitle>Your latest financial activity</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <table class="transactions-table">
+
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+
+      
+
+            <tbody>
+  <tr *ngFor="let transaction of transactions">
+    <td>{{ transaction.description }}</td>
+
+    <td>
+      <span
+        class="category"
+        [class.income]="transaction.type === 'income'">
+        {{ transaction.category }}
+      </span>
+    </td>
+
+    <td>{{ transaction.date | date:'MMM d, y' }}</td>
+
+    <td
+      class="amount"
+      [class.positive]="transaction.type === 'income'"
+      [class.negative]="transaction.type === 'expense'">
+
+      {{ transaction.type === 'income' ? '+' : '-' }}€{{ transaction.amount }}
+    </td>
+  </tr>
+</tbody>
+         
+
+      </table>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

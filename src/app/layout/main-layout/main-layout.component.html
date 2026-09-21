@@ -1,0 +1,18 @@
+<div class="app-container">
+
+  <app-sidebar #sidebar></app-sidebar>
+
+
+  <div class="main-section">
+
+   <app-navbar
+  (menuClicked)="sidebar.toggleMobileMenu()">
+</app-navbar>
+
+    <main class="page-content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>
